@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class GAME {
     public static void main(String[] args) {
-
-        char[][] gameBoard = {{' ', '|', ' ', '|', ' '},
+        
+        char[][] gameBoard = {{' ', '|', ' ', '|', ' '},          //creating a 2d gameboard
                 {'-', '+', '-', '+', '-'},
                 {' ', '|', ' ', '|', ' '},
                 {'-', '+', '-', '+', '-'},
@@ -13,23 +13,25 @@ public class GAME {
         Scanner sc = new Scanner(System.in);
         Random rand = new Random();
 
-        for(int i = 0 ; i < 4;i++)  {
-            if(gameEndedByComputer(gameBoard))  {
+        for(int i = 0 ; i < 4;i++)  {                           // You will have your turns 4 times  maximum . if you dont win under 4 turns , it's a tie
+            if(gameEndedByComputer(gameBoard))  {                //check if the computer has won
                 System.out.println("BETTER LUCK NEXT TIME!!!");
                 break;
             }
-            System.out.println("Enter the pos: ");
+            
+            System.out.println("Enter the pos: ");                //Ask the user to play his turn and update the gameBoard
             int pos = sc.nextInt();
             placePiece(gameBoard,pos,"Player");
             printBoard(gameBoard);
+            
             System.out.println(" ");
-            if(gameEndedByUser(gameBoard))  {
+            
+            if(gameEndedByUser(gameBoard))  {                    //check if the game is won by user
                 System.out.println("CONGRATULATIONS YOU WON!!!");
                 break;
             }
 
-
-            while(true)  {
+            while(true)  {                                       //if cpu chose a right place then validate the turn and update the gameBoard
                 int cpuPos = rand.nextInt(9) + 1;
                 if(placePiece(gameBoard,cpuPos,"computer"))  {
                     break;
@@ -38,7 +40,7 @@ public class GAME {
 
             printBoard(gameBoard);
         }
-        if(!gameEndedByComputer(gameBoard) && !gameEndedByUser(gameBoard))  {
+        if(!gameEndedByComputer(gameBoard) && !gameEndedByUser(gameBoard))  {      //if nobody wins, its a tie!
             System.out.println("IT'S A TIE!!!");
         }
 
@@ -46,7 +48,7 @@ public class GAME {
 
     }
 
-    public static void printBoard(char[][] gameBoard) {
+    public static void printBoard(char[][] gameBoard) {                          //this method shows the gameBoard
         for (char[] row : gameBoard) {
             for (char c : row) {
                 System.out.print(c);
@@ -55,7 +57,7 @@ public class GAME {
         }
     }
 
-    public static boolean placePiece(char[][] gameBoard, int pos, String user)  {
+    public static boolean placePiece(char[][] gameBoard, int pos, String user)  {    //this method place the piece on the board on correct places
         char Symbol = ' ';
         if(user.equals("Player"))  {
             Symbol = 'X';
@@ -124,7 +126,7 @@ public class GAME {
         return true;
     }
 
-    public static boolean gameEndedByUser(char[][] gameBoard) {
+    public static boolean gameEndedByUser(char[][] gameBoard) {                //checks if the game is won by user by tictactoe rules
         if ((gameBoard[0][0] == 'X' && gameBoard[0][2] == 'X' && gameBoard[0][4] == 'X')
                 || (gameBoard[2][0] == 'X' && gameBoard[2][2] == 'X' && gameBoard[2][4] == 'X')
                 || (gameBoard[4][0] == 'X' && gameBoard[4][2] == 'X' && gameBoard[4][4] == 'X')
@@ -139,7 +141,7 @@ public class GAME {
     }
 
 
-    public static boolean gameEndedByComputer ( char[][] gameBoard){
+    public static boolean gameEndedByComputer ( char[][] gameBoard){         //checks if the game is won by computer by tictactoe rules
             if ((gameBoard[0][0] == 'O' && gameBoard[0][2] == 'O' && gameBoard[0][4] == 'O')
                     || (gameBoard[2][0] == 'O' && gameBoard[2][2] == 'O' && gameBoard[2][4] == 'O')
                     || (gameBoard[4][0] == 'O' && gameBoard[4][2] == 'O' && gameBoard[4][4] == 'O')
